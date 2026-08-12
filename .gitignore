@@ -1,0 +1,6 @@
+ragtest-venv/
+*.csv
+*_summary.md
+ground_truth_remapped.jsonl
+__pycache__/
+.DS_Store
