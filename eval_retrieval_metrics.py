@@ -1,4 +1,29 @@
 #!/usr/bin/env python3
+#!/usr/bin/env python3
+"""
+=============================================================================
+README FOR EVAL_RETRIEVAL_METRICS
+=============================================================================
+Aşağıdaki komutlar Linux / macOS veya Windows terminalinde (Bash / PowerShell)
+doğrudan çalıştırılmak üzere tasarlanmıştır.
+
+KULLANIM ALTERNATİFLERİ (TERMINAL KOMUTLARI):
+
+1) Config / Ayar Kontrolü (Arama yapmadan mevcut sunucu ayarlarını gösterir):
+   python3 eval_retrieval_metrics.py --verify-config --base-url http://localhost:8080 --api-key YOUR_API_KEY
+
+2) Dense-Only Testi (BM25 Kapalı, Sadece Vektör Araması):
+   python3 eval_retrieval_metrics.py --base-url http://localhost:8080 --api-key YOUR_API_KEY \
+       --collection-name YOUR_COLLECTION_ID --ground-truth ground_truth_remapped.jsonl \
+       --force-hybrid false --label "Dense-only" --out-prefix dense_only_final
+
+3) Hybrid Testi (BM25 + Dense + Reranker Açık):
+   python3 eval_retrieval_metrics.py --base-url http://localhost:8080 --api-key YOUR_API_KEY \
+       --collection-name YOUR_COLLECTION_ID --ground-truth ground_truth_remapped.jsonl \
+       --force-hybrid true --label "Hybrid" --out-prefix hybrid_final
+=============================================================================
+"""
+
 """
 eval_retrieval_metrics.py
 Ground truth setini Open WebUI retrieval API'sine karsi test eder;
