@@ -1,4 +1,55 @@
 #!/usr/bin/env python3
+"""
+=============================================================================
+README FOR EVAL_E2E_TTFT
+=============================================================================
+AÇIKLAMA:
+Bu script, uçtan uca (E2E) RAG performansını ölçer. Soru sorulduğu andan itibaren:
+1) Retrieval (Arama) süresini,
+2) Time-To-First-Token (TTFT - İlk jetonun üretilme süresi) değerini,
+3) Toplam yanıt üretme süresini (Generation Latency) milisaniye cinsinden hesaplar.
+
+ÖN GEREKSİNİMLER (Terminalden Çalıştırın):
+   pip install requests pandas numpy
+
+KULLANIM ALTERNATİFLERİ (TERMINAL KOMUTLARI):
+
+1) Dense Arama Modunda Uçtan Uca (E2E) Test:
+   python3 eval_e2e_ttft.py --mode dense \
+       --ground-truth ground_truth_remapped.jsonl \
+       --vllm-url http://localhost:8000/v1 \
+       --model "Qwen/Qwen2.5-7B-Instruct-AWQ" \
+       --owui-url http://localhost:8080 \
+       --api-key YOUR_API_KEY \
+       --collection-name YOUR_COLLECTION_ID \
+       --top-k 5 \
+       --out-prefix e2e_dense_topk5
+
+2) Hybrid Arama Modunda Uçtan Uca (E2E) Test:
+   python3 eval_e2e_ttft.py --mode hybrid \
+       --ground-truth ground_truth_remapped.jsonl \
+       --vllm-url http://localhost:8000/v1 \
+       --model "Qwen/Qwen2.5-7B-Instruct-AWQ" \
+       --owui-url http://localhost:8080 \
+       --api-key YOUR_API_KEY \
+       --collection-name YOUR_COLLECTION_ID \
+       --top-k 5 \
+       --out-prefix e2e_hybrid_topk5
+
+PARAMETRE AÇIKLAMALARI:
+   --mode            : Arama modu ('dense' veya 'hybrid')
+   --vllm-url        : Yanıt üretecek LLM sunucusunun adresi
+   --owui-url        : Retrieval yapacak Open WebUI adresi
+   --top-k           : Modele bağlam (context) olarak verilecek doküman sayısı
+   --out-prefix      : Sonuç raporlarının kaydedileceği dosya ön ismi
+=============================================================================
+"""
+"""
+- Open WebUI üzerinden retrieval (doc query) gecikmesini ölçer.
+- vLLM streaming çıktısı üzerinden Time-To-First-Token (TTFT) değerini hesaplar.
+- Generation ve toplam E2E gecikme metriklerini CSV olarak kaydeder.
+- Arka planda anlık GPU VRAM ve kullanım takibi yapar."
+"""
 import argparse
 import json
 import time
