@@ -1,3 +1,12 @@
+"""
+# =========================================================================================
+# vLLM TEKLİ ÇIKARIM VE GPU KAYNAK İZLEME BENCHMARK BETİĞİ
+# Bu script, vLLM sunucusuna tek bir istek atarak yanıt süresi, üretilen token/sn (TPS)
+# ile arka planda saniyelik ortalama/max VRAM (MiB) ve GPU kullanım oranlarını ölçer.
+# GEREKSİNİMLER: Requests kütüphanesi (pip install requests), nvidia-smi ve aktif vLLM.
+# KULLANIM: vLLM http://localhost:8000 üzerinde çalışırken "python3 script_adi.py" yazın.
+# =========================================================================================
+"""
 import time
 import requests
 import subprocess
