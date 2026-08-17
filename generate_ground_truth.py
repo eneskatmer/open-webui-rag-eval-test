@@ -2,7 +2,7 @@
 """
 generate_ground_truth.py
 
-TOBB ETU RAG projesi icin mevzuat PDF'lerinden otomatik soru-cevap
+RAG projesi icin mevzuat PDF'lerinden otomatik soru-cevap
 (ground truth) seti uretir. Her PDF'i chunk'lara boler, her chunk'tan
 vLLM (Qwen2.5-7B-Instruct-AWQ) kullanarak 1 soru + cevap uretir.
 
