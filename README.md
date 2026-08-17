@@ -1,34 +1,18 @@
 # Open WebUI Retrieval Evaluator
 
-Open WebUI retrieval API'si için Recall@k, MRR, latency ve GPU/VRAM kullanım metriklerini ölçen test betiği.
+Open WebUI retrieval API'si için Recall@k, MRR, latency, TTFT ve GPU/VRAM kullanım metriklerini ölçen test betikleri.
 
 ## Kurulum
 
-```bash
 source ragtest-venv/bin/activate
-pip install requests
+pip install requests pandas numpy
 
+## 1. Retrieval Performans Testi (eval_retrieval_metrics.py)
 
-# 1) Mevcut config'i kontrol edin (opsiyonel ama önerilir)
-python3 eval_retrieval_metrics.py --verify-config \
-  --base-url http://localhost:8080 --api-key YOUR_API_KEY
+python3 eval_retrieval_metrics.py --base-url http://localhost:8080 --api-key YOUR_API_KEY --collection-name YOUR_COLLECTION_ID --ground-truth ground_truth_remapped.jsonl --force-hybrid true --top-k 5 --label "Hybrid (TOP_K=5)" --out-prefix hybrid_topk5
 
-# 2) DENSE-ONLY testi (config'i API'den zorla kapatıp çalıştırır)
-python3 eval_retrieval_metrics.py \
-  --base-url http://localhost:8080 \
-  --api-key YOUR_API_KEY \
-  --collection-name YOUR_COLLECTION_ID \
-  --ground-truth ground_truth_remapped.jsonl \
-  --force-hybrid false \
-  --label "Dense-only (BM25+Reranker kapalı)" \
-  --out-prefix dense_only_final
+## 2. Uçtan Uca (E2E) ve TTFT Performance Testi (eval_e2e_ttft.py)
 
-# 3) HYBRID testi (config'i API'den zorla açıp çalıştırır)
-python3 eval_retrieval_metrics.py \
-  --base-url http://localhost:8080 \
-  --api-key YOUR_API_KEY \
-  --collection-name YOUR_COLLECTION_ID \
-  --ground-truth ground_truth_remapped.jsonl \
-  --force-hybrid true \
-  --label "Hybrid (BM25+Dense+Reranker açık)" \
-  --out-prefix hybrid_final
+Open WebUI üzerinden bağlam çekip vLLM sunucusundaki Qwen2.5-7B modeline besleyen; Retrieval Latency, Time-To-First-Token (TTFT), Generation Time ve Total E2E Latency sürelerini ölçen koddur.
+
+python3 eval_e2e_ttft.py --mode hybrid --ground-truth ground_truth_remapped.jsonl --vllm-url http://localhost:8000/v1 --model "Qwen/Qwen2.5-7B-Instruct-AWQ" --owui-url http://localhost:8080 --api-key YOUR_API_KEY --collection-name YOUR_COLLECTION_ID --top-k 5 --out-prefix e2e_hybrid_topk5
