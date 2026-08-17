@@ -1,18 +1,22 @@
 #!/usr/bin/env python3
-#!/usr/bin/env python3
 """
 =============================================================================
 README FOR EVAL_RETRIEVAL_METRICS
 =============================================================================
-Aşağıdaki komutlar Linux / macOS veya Windows terminalinde (Bash / PowerShell)
-doğrudan çalıştırılmak üzere tasarlanmıştır.
+AÇIKLAMA:
+Bu script, Open WebUI üzerindeki koleksiyonlarınız için vektör arama (Dense) ve 
+hibrit arama (BM25 + Dense + Reranker) performanslarını ölçer. 
+Recall@k, MRR, arama süreleri ve test esnasındaki GPU/VRAM kullanımını analiz eder.
+
+ÖN GEREKSİNİMLER (Terminalden Çalıştırın):
+   pip install requests pandas numpy
 
 KULLANIM ALTERNATİFLERİ (TERMINAL KOMUTLARI):
 
-1) Config / Ayar Kontrolü (Arama yapmadan mevcut sunucu ayarlarını gösterir):
+1) Sunucu Arama Ayarlarını Kontrol Etme (Test çalıştırmadan sadece ayarları görür):
    python3 eval_retrieval_metrics.py --verify-config --base-url http://localhost:8080 --api-key YOUR_API_KEY
 
-2) Dense-Only Testi (BM25 Kapalı, Sadece Vektör Araması):
+2) Dense-Only Testi (BM25 Kapalı - Sadece Vektör Araması):
    python3 eval_retrieval_metrics.py --base-url http://localhost:8080 --api-key YOUR_API_KEY \
        --collection-name YOUR_COLLECTION_ID --ground-truth ground_truth_remapped.jsonl \
        --force-hybrid false --label "Dense-only" --out-prefix dense_only_final
@@ -21,6 +25,13 @@ KULLANIM ALTERNATİFLERİ (TERMINAL KOMUTLARI):
    python3 eval_retrieval_metrics.py --base-url http://localhost:8080 --api-key YOUR_API_KEY \
        --collection-name YOUR_COLLECTION_ID --ground-truth ground_truth_remapped.jsonl \
        --force-hybrid true --label "Hybrid" --out-prefix hybrid_final
+
+PARAMETRE AÇIKLAMALARI:
+   --base-url        : Open WebUI sunucu adresi (Varsayılan: http://localhost:8080)
+   --api-key         : Open WebUI Ayarlar > Hesap bölümünden alacağınız API anahtarı
+   --collection-name : Open WebUI üzerindeki dosya/koleksiyon ID'si
+   --ground-truth    : Soru ve kaynak eşleşmelerini içeren .jsonl dosyası
+   --out-prefix      : Çıktı olarak üretilecek CSV ve MD rapor dosyalarının isim ön eki
 =============================================================================
 """
 
