@@ -1,5 +1,38 @@
 #!/usr/bin/env python3
 """
+=============================================================================
+README FOR GENERATE_GROUND_TRUTH
+=============================================================================
+AÇIKLAMA:
+Bu script, belirtilen klasördeki PDF mevzuat/doküman dosyalarını okuyarak vLLM veya
+OpenAI uyumlu bir dil modeli üzerinden otomatik Soru-Cevap (Ground Truth) çiftleri üretir.
+Üretilen veriler test betiklerinde kullanılmak üzere .jsonl formatında kaydedilir.
+
+ÖN GEREKSİNİMLER (Terminalden Çalıştırın):
+   pip install requests pypdf
+
+KULLANIM ALTERNATİFLERİ (TERMINAL KOMUTLARI):
+
+1) Varsayılan Ayarlarla Ground Truth Üretimi:
+   python3 generate_ground_truth.py --pdf-dir /path/to/pdfs \
+       --vllm-url http://localhost:8000/v1 \
+       --model "Qwen/Qwen2.5-7B-Instruct-AWQ"
+
+2) Özel Çıktı Dosyası İsimlendirerek Çalıştırma:
+   python3 generate_ground_truth.py --pdf-dir /path/to/pdfs \
+       --vllm-url http://localhost:8000/v1 \
+       --model "Qwen/Qwen2.5-7B-Instruct-AWQ" \
+       --output ground_truth_remapped.jsonl
+
+PARAMETRE AÇIKLAMALARI:
+   --pdf-dir  : İçinde PDF dosyalarının bulunduğu klasörün yolu
+   --vllm-url : vLLM veya OpenAI uyumlu çıkarım sunucusunun API adresi
+   --model    : Soru türetmek için kullanılacak model adı
+   --output   : Çıktı olarak kaydedilecek .jsonl dosya adı
+=============================================================================
+"""
+
+"""
 generate_ground_truth.py
 
 RAG projesi icin mevzuat PDF'lerinden otomatik soru-cevap
