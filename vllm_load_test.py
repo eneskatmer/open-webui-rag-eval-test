@@ -1,3 +1,25 @@
+#!/usr/bin/env python3
+"""
+=============================================================================
+README FOR VLLM_LOAD_BENCHMARK
+=============================================================================
+AÇIKLAMA:
+Bu script, vLLM sunucusuna eşzamanlı (concurrent) yük testi uygular. 
+Sistemin yüksek yük altındaki performansını, toplam throughput (token/sn), 
+ortalama/P95 gecikme (latency) sürelerini ve anlık GPU/VRAM kullanımını ölçer.
+
+ÖN GEREKSİNİMLER (Terminalden Çalıştırın):
+   pip install requests
+
+KULLANIM (TERMINAL KOMUTU):
+   python3 vllm_load_benchmark.py
+
+NOT:
+   Script içindeki `CONCURRENT_REQUESTS` değişkenini değiştirerek farklı yük
+   seviyelerini (örn: 10, 50, 100 eşzamanlı kullanıcı) test edebilirsiniz.
+=============================================================================
+"""
+
 import time
 import statistics
 import requests
