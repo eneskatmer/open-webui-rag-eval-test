@@ -1,6 +1,3 @@
-# Open WebUI Retrieval Evaluator
-
-Open WebUI retrieval API'si için Recall@k, MRR, latency ve GPU/VRAM kullanım metriklerini ölçen test betiği.
 
 ## Kurulum
 
