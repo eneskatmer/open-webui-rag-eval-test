@@ -1,3 +1,15 @@
+""" 1.5B Tek Kullanıcı test betiği
+Bu betik, Hugging Face transformers kütüphanesi ve PyTorch kullanarak yerel GPU üzerinde çalışan dil modellerinin (LLM) saf çıkarım (native inference) performansını ölçer.
+
+İşlem öncesi ve sonrası NVML (pynvml) sürücüleri üzerinden VRAM bellek kullanımını takip eder,
+belirtilen istem (prompt) doğrultusunda üretim gerçekleştirir ve saniyede üretilen token sayısını
+(TPS - Tokens Per Second) hesaplar. Elde edilen tüm metrikler eşzamanlı olarak terminale basılır 
+ve zaman damgasıyla birlikte model_performance_log.txt dosyasına kaydedilir.
+"""
+
+
+
+
 import time
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
