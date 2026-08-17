@@ -1,4 +1,4 @@
 
 ## Kurulum
 
-!!! Her dosya kendi için kodunun üstünde comment olarak Readme bulunuyor.
+!!! Her dosya için kodunun üstünde comment olarak Readme bulunuyor.
